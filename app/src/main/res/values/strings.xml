@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Hotel booking</string>
+    <string name="drawer_item_home">Settings</string>
+    <string name="drawer_item_settings">Logout</string>
+</resources>
