@@ -9,14 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -58,6 +58,7 @@ public class NearbyPlacesList extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
+            StringBuilder ba;
             HttpURLConnection httpconn;
             url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=22.72,75.83&type=hotel&radius=400&key=AIzaSyD0vwXNlmIu_O4lAyCOB8imnnl3olpaVN8";
               StringBuffer sb = new StringBuffer(url);
@@ -65,17 +66,18 @@ public class NearbyPlacesList extends AppCompatActivity {
                 String inputString = null;
                 URL urlconn = new URL(url);
                 httpconn = (HttpURLConnection) urlconn.openConnection();
+                httpconn.setRequestMethod("GET");
                 httpconn.connect();
                 InputStream is = httpconn.getInputStream();
-                BufferedInputStream bf = new BufferedInputStream(is);
-                ByteArrayBuffer ba = new ByteArrayBuffer(500);
+                BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+                ba = new
+                        StringBuilder();
 
                 while ((bf.read() != -1)) {
-                    ba.append((byte) bf.read());
-                }
-                String inputString_f = new String(ba.toByteArray());
-                inputString = inputString_f.trim();
+                    ba.append(inputString);
 
+                }
+                return ba.toString();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -84,7 +86,8 @@ public class NearbyPlacesList extends AppCompatActivity {
 //            HttpClient httpClient = new DefaultHttpClient();
 //            HttpGet get = new HttpGet(url);
 
-            return inputString;
+            return null;
+
         }
 
         @Override
