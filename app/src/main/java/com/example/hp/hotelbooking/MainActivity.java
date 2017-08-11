@@ -55,8 +55,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MainActivity.this,NearbyPlacesList.class);
+                    intent.putExtra("latitude",lats);
+                    intent.putExtra("longitude",longs);
+
                     startActivity(intent);
-                }
+                              }
             });
 
 

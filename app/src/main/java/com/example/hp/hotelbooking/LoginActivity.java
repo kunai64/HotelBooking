@@ -1,11 +1,10 @@
 package com.example.hp.hotelbooking;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,8 +26,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import static android.R.attr.data;
-
 
 public class LoginActivity extends AppCompatActivity{
     private static final int RC_SIGN_IN = 1;
@@ -40,6 +37,8 @@ public class LoginActivity extends AppCompatActivity{
     private TextView hotel;
     private TextView booking;
     private boolean exit;
+
+        ProgressDialog progressDialog;
 
     private SignInButton sign_in;
     @Override
@@ -54,7 +53,7 @@ public class LoginActivity extends AppCompatActivity{
         Typeface typeface =  Typeface.createFromAsset(getAssets(),"fonts/Typo Quik Bold_Demo.otf");
         hotel.setTypeface(typeface);
         booking.setTypeface(typeface);
-
+        progressDialog = new ProgressDialog(LoginActivity.this);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener(){
 
@@ -102,7 +101,8 @@ public class LoginActivity extends AppCompatActivity{
 
     }
     private void signIn() {
-
+        progressDialog.setMessage("Logging In");
+        progressDialog.show();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity{
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+
 //                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             }
         }
