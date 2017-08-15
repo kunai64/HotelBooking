@@ -1,6 +1,7 @@
 package com.example.hp.hotelbooking;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,27 +20,52 @@ import java.util.List;
  */
 
 public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHolder> {
-    private List<Result> list;
+    public List<Result> list;
     final String API_KEY = "AIzaSyD0vwXNlmIu_O4lAyCOB8imnnl3olpaVN8";
     public ImageView image_f;
-    public nearbyAdapter(List<Result> list)
+    public nearbyAdapter(List<Result> list )
     {
         this.list = list;
     }
     private Context context;
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
 
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+        private final List<Result> list;
         public TextView name_f,status_f,rating_f;
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView,List<Result> list) {
             super(itemView);
             name_f = (TextView) itemView.findViewById(R.id.name);
             status_f = (TextView) itemView.findViewById(R.id.status);
             rating_f = (TextView) itemView.findViewById(R.id.rating);
             image_f = (ImageView) itemView.findViewById(R.id.image);
+            itemView.setOnClickListener(this);
+            this.list = list;
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Intent intent = new Intent(context,details.class);
+            intent.putExtra("id",list.get(position).getPlaceId());
+            intent.putExtra("position",getAdapterPosition());
+            intent.putExtra("photoRef",list.get(position).getPhotos().get(0).getPhotoReference());
+            intent.putExtra("Address",list.get(position).getVicinity());
+            intent.putExtra("Rating",list.get(position).getRating());
+            intent.putExtra("name",list.get(position).getName());
+            context.startActivity(intent);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            return false;
         }
     }
+
+
 
 
     @Override
@@ -47,7 +73,7 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.content, parent, false);
 
-        MyViewHolder holder = new MyViewHolder(itemView);
+        MyViewHolder holder = new MyViewHolder(itemView,list);
         context = itemView.getContext();
         return holder;
 
@@ -56,6 +82,10 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
     @Override
     public void onBindViewHolder( MyViewHolder  holder, int position) {
         Result c = list.get(position);
+
+       TextView name_f,status_f,rating_f;
+
+
         try {
 
             holder.name_f.setText(c.getName());
@@ -96,6 +126,7 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
         return position;
     }
 
+    //Click event handling
 
 
 }

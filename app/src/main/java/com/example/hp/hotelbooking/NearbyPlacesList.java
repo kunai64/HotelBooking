@@ -68,7 +68,6 @@ public class NearbyPlacesList extends AppCompatActivity {
         String url;
 
 
-        String inputString = null;
         ProgressDialog asyncDialog = new ProgressDialog(NearbyPlacesList.this);
         @Override
         protected void onPreExecute() {
@@ -85,7 +84,6 @@ public class NearbyPlacesList extends AppCompatActivity {
             StringBuilder ba;
             HttpURLConnection httpconn;
             url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lat+","+lang+"&type=restaurant&radius=4000&key=AIzaSyD0vwXNlmIu_O4lAyCOB8imnnl3olpaVN8";
-            StringBuffer sb = new StringBuffer();
             try {
 
                 URL urlconn = new URL(url);
@@ -104,7 +102,6 @@ public class NearbyPlacesList extends AppCompatActivity {
 //            HttpGet get = new HttpGet(url);
 
             return null;
-
         }
 
         // Converting InputStream to String

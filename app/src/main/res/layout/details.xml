@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:orientation="horizontal"
+    android:background="@android:drawable/dialog_holo_light_frame"
+
+    android:backgroundTint="#1e88e5"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="93dp"
+        android:layout_height="93dp"
+        android:elevation="4dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="37dp"
+/>
+
+    <TextView
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="46dp"
+        android:hint="Hotel Name"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:id="@+id/name"
+        />
+</LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#bbdefb">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+
+        android:layout_marginLeft="17dp">
+        <ImageView
+            android:id="@+id/addIcon"
+            android:layout_toLeftOf="@id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_place_black_24dp"/>
+
+        <TextView
+            android:id="@+id/address"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address "
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+
+        android:layout_marginLeft="17dp">
+        <ImageView
+            android:id="@+id/rateIcon"
+            android:layout_toLeftOf="@id/address"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@mipmap/ic_star_rate_black_18dp"
+            />
+
+        <TextView
+            android:id="@+id/rating"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating "
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+
+        android:layout_marginLeft="17dp">
+        <ImageView
+            android:id="@+id/phoneIcon"
+            android:layout_toLeftOf="@id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_phone_black_24dp"/>
+
+        <TextView
+            android:id="@+id/phone"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number "
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+
+        android:layout_marginLeft="17dp">
+        <ImageView
+            android:id="@+id/webIcon"
+            android:layout_toLeftOf="@id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_web_black_24dp"/>
+
+        <TextView
+            android:id="@+id/website"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Website "
+            android:layout_marginLeft="4dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

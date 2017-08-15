@@ -1,6 +1,5 @@
 package com.example.hp.hotelbooking;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -38,8 +37,6 @@ public class LoginActivity extends AppCompatActivity{
     private TextView booking;
     private boolean exit;
 
-        ProgressDialog progressDialog;
-
     private SignInButton sign_in;
     @Override
 
@@ -53,7 +50,7 @@ public class LoginActivity extends AppCompatActivity{
         Typeface typeface =  Typeface.createFromAsset(getAssets(),"fonts/Typo Quik Bold_Demo.otf");
         hotel.setTypeface(typeface);
         booking.setTypeface(typeface);
-        progressDialog = new ProgressDialog(LoginActivity.this);
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener(){
 
@@ -101,8 +98,7 @@ public class LoginActivity extends AppCompatActivity{
 
     }
     private void signIn() {
-        progressDialog.setMessage("Logging In");
-        progressDialog.show();
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -132,7 +128,6 @@ public class LoginActivity extends AppCompatActivity{
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-
 //                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             }
         }
