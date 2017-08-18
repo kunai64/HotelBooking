@@ -2,13 +2,11 @@ package com.example.hp.hotelbooking;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
+import android.view.KeyEvent;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,56 +19,57 @@ import android.widget.ProgressBar;
 public class webview extends Activity {
     ProgressBar progressBar;
 
+    WebView w;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_layout);
 
-        final WebView w = (WebView) findViewById(R.id.webview);
+        w = (WebView) findViewById(R.id.webview);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        w.setWebChromeClient(new MyWebChromeClient(this));
-        w.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                progressBar.setVisibility(View.VISIBLE);
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                w.loadUrl(getIntent().getExtras().getString("url"));
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                progressBar.setVisibility(View.GONE);
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                super.onReceivedError(view, request, error);
-                progressBar.setVisibility(View.GONE);
-                invalidateOptionsMenu();
-            }
-        });
         WebSettings webSettings = w.getSettings();
         webSettings.setJavaScriptEnabled(true);
         w.getSettings().setSupportZoom(true);
         w.getSettings().setBuiltInZoomControls(true);
         w.getSettings().setDisplayZoomControls(true);
+        w.setWebViewClient(new MyWebClient(this));
+
+        w.loadUrl(getIntent().getExtras().getString("url"));
     }
 
-    private class MyWebChromeClient extends WebChromeClient {
-        Context context;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && this.w.canGoBack()) {
+            this.w.goBack();
+            return true;
+        }
 
-        public MyWebChromeClient(Context context) {
-            super();
-            this.context = context;
+        return super.onKeyDown(keyCode, event);
+    }
+
+        class MyWebClient extends WebViewClient {
+            Context context;
+
+
+            public MyWebClient(Context context) {
+                super();
+                this.context = context;
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                if (url.indexOf(getIntent().getExtras().getString("url")) > -1) {
+                    return false;
+                }
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            }
+
+
         }
     }
-}
+

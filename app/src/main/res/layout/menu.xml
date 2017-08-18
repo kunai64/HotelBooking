@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<menu xmlns:android='http://schemas.android.com/apk/res/android'
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+     <item
+        android:id='@+id/action_home'
+        android:icon='@mipmap/ic_home_black_24dp'
+        android:orderInCategory='100'
+
+         />
+    <item
+        android:id='@+id/action_refresh'
+        android:icon='@mipmap/ic_refresh_black_24dp'
+        android:orderInCategory='100'
+
+        />
+    <item
+        android:id='@+id/action_fav'
+        android:icon='@mipmap/ic_star_rate_black_18dp'
+        android:orderInCategory='100'
+
+         />
+    <item
+        android:id='@+id/action_back'
+        android:icon='@mipmap/ic_arrow_back_black_24dp'
+        android:orderInCategory='101'
+
+         />
+    <item
+        android:id='@+id/action_forward'
+        android:icon='@mipmap/ic_arrow_forward_black_24dp'
+        android:orderInCategory='102'
+
+         />
+</menu>
