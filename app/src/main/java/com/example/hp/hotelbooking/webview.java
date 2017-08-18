@@ -2,8 +2,6 @@ package com.example.hp.hotelbooking;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -60,14 +58,8 @@ public class webview extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-                if (url.indexOf(getIntent().getExtras().getString("url")) > -1) {
-                    return false;
+                return  false;
                 }
-
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-                return true;
-            }
 
 
         }
