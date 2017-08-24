@@ -45,6 +45,7 @@ public class Result {
     @Expose
     private Double rating;
 
+
     public Geometry getGeometry() {
         return geometry;
     }
@@ -133,7 +134,7 @@ public class Result {
         this.openingHours = openingHours;
     }
 
-    public Double getRating() {
+    public Double getRating(){
         return rating;
     }
 

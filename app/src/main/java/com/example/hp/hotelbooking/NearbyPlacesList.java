@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.hp.hotelbooking.data.HotelAPIResponse;
 import com.example.hp.hotelbooking.data.Result;
 import com.google.gson.Gson;
+import com.like.LikeButton;
 
 import org.json.JSONException;
 
@@ -38,6 +39,7 @@ public class NearbyPlacesList extends AppCompatActivity {
     private double lang=0;
     private RecyclerView recyclerView;
     private nearbyAdapter mAdapter;
+    private LikeButton likeButton;
 
 
     @Override
@@ -52,6 +54,18 @@ public class NearbyPlacesList extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
             g.execute();
         }
+//        likeButton = (LikeButton) findViewById(R.id.star_button);
+//        likeButton.setOnLikeListener(new OnLikeListener() {
+//            @Override
+//            public void liked(LikeButton likeButton) {
+//                likeButton.setEnabled(true);
+//            }
+//
+//            @Override
+//            public void unLiked(LikeButton likeButton) {
+//                likeButton.setEnabled(false);
+//            }
+//        });
     }
 
     private List<Result> parseGoogleParse(String response) throws JSONException {
@@ -144,6 +158,7 @@ public class NearbyPlacesList extends AppCompatActivity {
 
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setAdapter(mAdapter);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

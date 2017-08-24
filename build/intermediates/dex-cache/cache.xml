@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/kunai/.android/build-cache/1f964293637e34a2fb8c7341db6f2027c2571faa/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="14024de882f2979e4dffed4857f7f39251bea246">
+        <dex dex="/home/kunai/StudioProjects/Hotelbooking/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_604af4c4248079f2e0a7238be44ccc5be84abe3d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/kunai/StudioProjects/Hotelbooking/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="cd10787ce938753eed465b437423d9c58e3a35ad">
+        <dex dex="/home/kunai/StudioProjects/Hotelbooking/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_395ddc8998f83a34479da1e2b860b85188cb7c92/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/kunai/.android/build-cache/4fda177a46ac6f68a40e5faff4aba94afc3d04df/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9048a9e4798a71fe8e62e4a049eeb9ccb24010cb">
+        <dex dex="/home/kunai/StudioProjects/Hotelbooking/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a4ff55c5997ec955359a88b5758b6f729b84a7f1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/kunai/StudioProjects/Hotelbooking/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/kunai/StudioProjects/Hotelbooking/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_6b3c83b26dca8717ef2fd814ca418cf2c0248add/classes.dex" />
+    </item>
+
+</items>

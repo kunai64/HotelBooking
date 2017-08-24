@@ -11,9 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hp.hotelbooking.data.Result;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static com.mikepenz.iconics.Iconics.TAG;
 
 /**
  * Created by kunai on 3/8/17.
@@ -28,22 +34,24 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
         this.list = list;
     }
     private Context context;
+    private DatabaseReference mDatabase;
+    LikeButton likeButton;
 
 
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
         private final List<Result> list;
-        public TextView name_f,status_f,rating_f;
-        public MyViewHolder(View itemView,List<Result> list) {
+        public TextView name_f;
+        public TextView status_f;
+                public MyViewHolder(View itemView,List<Result> list) {
             super(itemView);
             name_f = (TextView) itemView.findViewById(R.id.name);
             status_f = (TextView) itemView.findViewById(R.id.status);
-            rating_f = (TextView) itemView.findViewById(R.id.rating);
             image_f = (ImageView) itemView.findViewById(R.id.image);
             itemView.setOnClickListener(this);
             this.list = list;
-
+            likeButton = (LikeButton) itemView.findViewById(R.id.star_button);
         }
 
         @Override
@@ -80,11 +88,27 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder( MyViewHolder  holder, int position) {
+    public void onBindViewHolder(MyViewHolder  holder, final int position) {
         Result c = list.get(position);
+        final String[] value = new String[1];
+        final String[] id = new String[1];
+        //favourite
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                mDatabase = FirebaseDatabase.getInstance().getReference("id");
+                id[0] = mDatabase.child("PlaceId").push().getKey().toString();
+                 value[0] = list.get(position).getId();
+                mDatabase.child(id[0]).child("placeId").setValue(value[0]);
+                Log.d(TAG, "liked: ");
+            }
 
-       TextView name_f,status_f,rating_f;
-
+            @Override
+            public void unLiked(LikeButton likeButton) {
+              DatabaseReference database = FirebaseDatabase.getInstance().getReference("id").child(id[0]);
+                database.removeValue();
+            }
+        });
 
         try {
 
@@ -92,24 +116,26 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
             if (c.getOpeningHours() != null) {
                 if (c.getOpeningHours().getOpenNow())
                     holder.status_f.setText("Open");
-                else
-                    holder.status_f.setText("Closed");
-                holder.rating_f.setText(String.valueOf(c.getRating()));
+                else holder.status_f.setText("Closed");
+
             }
 
             int pos = getItemViewType(position);
-                if (list.get(pos).getPhotos() != null) {
-                        Picasso.with(context).load(
-                                "https://maps.googleapis.com/maps/api/place/photo?photoreference=" +  c.getPhotos().get(0).getPhotoReference() + "&maxwidth="
+            if (list.get(pos).getPhotos() != null) {
+                Picasso.with(context).load(
+                        "https://maps.googleapis.com/maps/api/place/photo?photoreference=" +  c.getPhotos().get(0).getPhotoReference() + "&maxwidth="
 
-                                        + c.getPhotos().get(0).getWidth() + "&maxheight=" + c.getPhotos().get(0).getHeight() + "&key=" + API_KEY).resize(200, 200).into(image_f);
-                    } else {
-                    Picasso.with(context).load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyD0vwXNlmIu_O4lAyCOB8imnnl3olpaVN8").resize(200, 200).into(image_f);
-                }
-
-            }catch(Exception e){
-                //System.println("Array out of bound");
+                                + c.getPhotos().get(0).getWidth() + "&maxheight=" + c.getPhotos().get(0).getHeight() + "&key=" + API_KEY).resize(690, 450).into(image_f);
+            } else {
+                Picasso.with(context).load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyD0vwXNlmIu_O4lAyCOB8imnnl3olpaVN8").resize(200, 200).into(image_f);
             }
+
+
+
+
+        }catch(Exception e){
+            //System.println("Array out of bound");
+        }
 
         //holder.image_f.setImageDrawable((Drawable)c.getPhotos() );
         Log.d("", "onBindViewHolder: binding happened");
