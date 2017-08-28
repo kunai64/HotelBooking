@@ -90,22 +90,24 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder  holder, final int position) {
         Result c = list.get(position);
-        final String[] value = new String[1];
-        final String[] id = new String[1];
+        mDatabase = FirebaseDatabase.getInstance().getReference("id");
+        final String value = list.get(position).getId();
+        final String ref = list.get(position).getPhotos().get(position).getPhotoReference();
+        final String name =list.get(position).getName();
+        final String id=mDatabase.child("Details").push().getKey().toString();
         //favourite
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                mDatabase = FirebaseDatabase.getInstance().getReference("id");
-                id[0] = mDatabase.child("PlaceId").push().getKey().toString();
-                 value[0] = list.get(position).getId();
-                mDatabase.child(id[0]).child("placeId").setValue(value[0]);
+                Info info = new Info(value,name,ref);
+                mDatabase.child(id).child("placeId").setValue(info);
+
                 Log.d(TAG, "liked: ");
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-              DatabaseReference database = FirebaseDatabase.getInstance().getReference("id").child(id[0]);
+              DatabaseReference database = FirebaseDatabase.getInstance().getReference("id").child(id);
                 database.removeValue();
             }
         });
@@ -155,4 +157,25 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
     //Click event handling
 
 
+
+    private class Info {
+        String id, name, ref;
+        Info(String id,String name,String ref){
+            this.id=id;
+            this.name=name;
+            this.ref=ref;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public String getRef() {
+            return ref;
+        }
+    }
 }
