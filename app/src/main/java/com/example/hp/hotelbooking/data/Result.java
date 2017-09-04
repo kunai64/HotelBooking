@@ -45,6 +45,12 @@ public class Result {
     @Expose
     private Double rating;
 
+    Photo photo = new Photo();
+    public Result(String name, String placeId){
+        this.name =name;
+        this.reference = photo.getPhotoReference();
+        this.placeId=placeId;
+    }
 
     public Geometry getGeometry() {
         return geometry;

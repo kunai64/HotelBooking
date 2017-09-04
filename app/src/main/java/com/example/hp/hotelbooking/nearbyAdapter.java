@@ -92,19 +92,18 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
         Result c = list.get(position);
         mDatabase = FirebaseDatabase.getInstance().getReference("id");
         final String value = list.get(position).getId();
-        final String ref = list.get(position).getPhotos().get(position).getPhotoReference();
+     //   final String ref = list.get(position).getPhotos().get(position).getPhotoReference();
         final String name =list.get(position).getName();
-        final String id=mDatabase.child("Details").push().getKey().toString();
+        final String id=mDatabase.child("id").push().getKey().toString();
         //favourite
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                Info info = new Info(value,name,ref);
-                mDatabase.child(id).child("placeId").setValue(info);
+                Result info = new Result(name,value);
+                mDatabase.child(id).setValue(info.toString());
 
                 Log.d(TAG, "liked: ");
             }
-
             @Override
             public void unLiked(LikeButton likeButton) {
               DatabaseReference database = FirebaseDatabase.getInstance().getReference("id").child(id);
@@ -160,7 +159,7 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
 
     private class Info {
         String id, name, ref;
-        Info(String id,String name,String ref){
+        Info(String id,String name){
             this.id=id;
             this.name=name;
             this.ref=ref;

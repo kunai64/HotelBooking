@@ -25,5 +25,5 @@ public class favourites extends Activity{
         setContentView(R.layout.favs);
         mDatabase = FirebaseDatabase.getInstance().getReference("id");
 
-}
+    }
 }
