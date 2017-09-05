@@ -39,14 +39,16 @@
             android:hint="Name Of The Hotel"
             android:layout_below="@id/picBar"
             android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textColor="#fff"/>
 
         <TextView
             android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
-            android:hint="Open Status" />
+            android:hint="Open Status"
+            android:textColor="#fff"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

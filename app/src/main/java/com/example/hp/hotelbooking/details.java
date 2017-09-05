@@ -72,18 +72,7 @@ public class details extends AppCompatActivity {
         //checkbox click listener
 
         //favourite
-        if(i%2==0)
-        fav.toggleClickable();
-        else
-            fav.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fav.setRating(0);
-                }
-            });
-
-            }
-
+    }
     private void init(){
         call = (LinearLayout) findViewById(R.id.call);
          imageView = (ImageView) findViewById(R.id.profile_image);
@@ -94,7 +83,6 @@ public class details extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("id");
         review = (TextView) findViewById(R.id.reviews);
         stars = (ProperRatingBar) findViewById(R.id.stars);
-        fav = (ProperRatingBar) findViewById(R.id.favs);
     }
 
     //gson parsing

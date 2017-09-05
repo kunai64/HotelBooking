@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_height="match_parent"
-    
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#e3f2fd">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
         android:scrollbarAlwaysDrawVerticalTrack="true">
 
     <ImageView
@@ -22,25 +24,10 @@
         android:layout_marginTop="46dp"
         android:hint="Hotel Name"
         android:textSize="20sp"
-        android:textColor="#ffffff"
+        android:textColor="#212121"
         android:layout_below="@id/profile_image"
         android:id="@+id/name"/>
 
-    <io.techery.properratingbar.ProperRatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:prb_defaultRating="0"
-        android:layout_below="@id/profile_image"
-        app:prb_symbolicTick="★"
-        app:prb_symbolicTickNormalColor="@android:color/darker_gray"
-        app:prb_symbolicTickSelectedColor="#ffca28"
-        app:prb_totalTicks="1"
-        android:layout_marginTop="46dp"
-        android:layout_alignParentRight="true"
-        android:id="@+id/favs"
-        android:textSize="30sp"
-        android:layout_marginRight="20dp"
-        />
 
     <LinearLayout android:layout_height="wrap_content"
         android:layout_below="@id/name"
@@ -52,6 +39,8 @@
         <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textStyle="bold"
+            android:textColor="#212121"
+
             android:hint="4.0"
             android:id="@+id/rating">
     </TextView>
@@ -74,6 +63,7 @@
             android:layout_marginLeft="10dp"
             android:hint="556 reviews"
             android:id="@+id/reviews"
+            android:textColor="#212121"
             >
         </TextView>
 
@@ -100,6 +90,8 @@
             android:src="@mipmap/ic_directions_black_24dp"
             />
         <TextView
+            android:textColor="#212121"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DIRECTIONS"
@@ -123,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="CALL"
                 android:layout_marginLeft="16dp"
+                android:textColor="#212121"
                 android:layout_marginTop="5dp"/>
         </LinearLayout>
 
@@ -142,6 +135,7 @@
 
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
+                android:textColor="#212121"
                 android:layout_height="wrap_content"
                 android:text="WEBSITE"/>
         </LinearLayout>
@@ -167,6 +161,7 @@
         <TextView
             android:id="@+id/address"
             android:textSize="14sp"
+            android:textColor="#212121"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:text="Address "
@@ -193,6 +188,7 @@
 
         <TextView
 
+            android:textColor="#212121"
             android:layout_marginTop="3dp"
             android:id="@+id/open"
             android:textSize="14sp"
@@ -227,6 +223,7 @@
             android:layout_height="wrap_content"
             android:text="Phone Number "
             android:layout_marginLeft="19dp"
+            android:textColor="#212121"
             android:textStyle="bold"
             android:layout_marginTop="3dp"/>
     </LinearLayout>

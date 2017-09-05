@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity{
     private static final int RC_SIGN_IN = 1;
     private static final String TAG = "LOGIN";
     private Button skipbtn;
+    private ImageView imageView;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
@@ -47,10 +49,12 @@ public class LoginActivity extends AppCompatActivity{
         FirebaseAuth.getInstance().signOut();
         hotel = (TextView) findViewById(R.id.hotel);
         booking = (TextView) findViewById(R.id.booking);
+        imageView = (ImageView) findViewById(R.id.hotelImage);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         Typeface typeface =  Typeface.createFromAsset(getAssets(),"fonts/Typo Quik Bold_Demo.otf");
         hotel.setTypeface(typeface);
         booking.setTypeface(typeface);
-
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener(){
 
@@ -58,7 +62,7 @@ public class LoginActivity extends AppCompatActivity{
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                     if(firebaseAuth.getCurrentUser() != null){
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, NearbyPlacesList.class));
                     }
                 }
             };
@@ -94,7 +98,7 @@ public class LoginActivity extends AppCompatActivity{
 
 
     public void skip(View v){
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, NearbyPlacesList.class));
 
     }
     private void signIn() {
