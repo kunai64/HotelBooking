@@ -35,12 +35,12 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import org.json.JSONException;
@@ -73,7 +73,7 @@ public class NearbyPlacesList extends AppCompatActivity implements GoogleApiClie
     EditText editText;
     Drawer result;
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
-
+    private DatabaseReference databaseReference;
     public NearbyPlacesList() {
     }
 
@@ -152,34 +152,36 @@ public class NearbyPlacesList extends AppCompatActivity implements GoogleApiClie
         new DrawerBuilder().withActivity(this).build();
 
         //adding drawer items
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.drawer_item_home);
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(R.string.drawer_item_settings);
 
+//        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("Favourites");
         //create the drawer and remember the `Drawer` result object
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         result = new DrawerBuilder()
                 .withActivity(this)
+                .withHasStableIds(true)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        item1,
-                        new DividerDrawerItem(),
-                        item2
+                        new PrimaryDrawerItem().withName("Favourites").withIdentifier(1).withSelectable(false),
+                          new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName("Logout").withIdentifier(2).withSelectable(false)
+  //
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(NearbyPlacesList.this, LoginActivity.class));
-                        return false;
+                        if(drawerItem!=null){
+                            if (drawerItem.getIdentifier()==1) {
+                                FirebaseAuth.getInstance().signOut();
+                                startActivity(new Intent(NearbyPlacesList.this, LoginActivity.class));
+                            }
+                            if (drawerItem.getIdentifier()==2)
+                                startActivity(new Intent(NearbyPlacesList.this,favourites.class));
+                        }
+                            return false;
+
                     }
                 })
                 .build();
-        //     set the selection to the item with the identifier 1
-        //set the selection to the item with the identifier 2
-        boolean t =item2.isSelected();
-        if(t){
-            result.setSelection(2,true);
-        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -346,6 +348,36 @@ public class NearbyPlacesList extends AppCompatActivity implements GoogleApiClie
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    class Favourites{
+        String id;
+        String name;
+        String reference;
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setReference(String reference) {
+            this.reference = reference;
+        }
+
+        public String getReference() {
+            return reference;
         }
     }
 }

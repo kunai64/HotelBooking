@@ -19,8 +19,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.mikepenz.iconics.Iconics.TAG;
-
 /**
  * Created by kunai on 3/8/17.
  */
@@ -84,13 +82,12 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
         MyViewHolder holder = new MyViewHolder(itemView,list);
         context = itemView.getContext();
         return holder;
-
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder  holder, final int position) {
-        Result c = list.get(position);
-        mDatabase = FirebaseDatabase.getInstance().getReference("id");
+        final Result c = list.get(position);
+        mDatabase = FirebaseDatabase.getInstance().getReference("Favourites");
         final String value = list.get(position).getId();
      //   final String ref = list.get(position).getPhotos().get(position).getPhotoReference();
         final String name =list.get(position).getName();
@@ -99,10 +96,20 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
         likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                Result info = new Result(name,value);
-                mDatabase.child(id).setValue(info.toString());
-
-                Log.d(TAG, "liked: ");
+                Info info = new Info();
+                info.setId(list.get(position).getId().toString());
+                info.setName(list.get(position).getName().toString());
+                info.setRef(c.getPhotos().get(0).getPhotoReference().toString());
+                if (c.getOpeningHours() != null) {
+                    if (c.getOpeningHours().getOpenNow())
+                        info.setOpenStatus("Open");
+                    else info.setOpenStatus("Closed");
+                }
+                info.getName();
+                info.getId();
+                info.getRef();
+                info.getOpenStatus();
+                mDatabase.child(id).setValue(info);
             }
             @Override
             public void unLiked(LikeButton likeButton) {
@@ -157,24 +164,4 @@ public class nearbyAdapter extends RecyclerView.Adapter<nearbyAdapter.MyViewHold
 
 
 
-    private class Info {
-        String id, name, ref;
-        Info(String id,String name){
-            this.id=id;
-            this.name=name;
-            this.ref=ref;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getRef() {
-            return ref;
-        }
-    }
 }

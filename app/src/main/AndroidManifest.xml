@@ -31,6 +31,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".webview" />
         <activity android:name=".CustomLocation" />
+        <activity android:name=".favourites" />
 
     </application>
 
